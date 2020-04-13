@@ -52,6 +52,34 @@
 
 ## 6. Cloud Marketplace (formerly Cloud Launcher)
 
+* Say you want a quick way to get started with GCP with minimal effort. That's what Google Cloud Launcher provides. It's a tool for quickly deploying functional software packages on Google Cloud Platform. There's no need to manually configure the software, virtual machine instances, storage or network settings.
+
+## 7. Demonstration: Getting Started with Cloud Launcher
+
+## 8. Getting Started with Google Cloud and Qwiklabs
+
+* Qwiklabs allows you to get practical hands-on experience with Google Cloud, and proficiency with Google account credentials, so that you can access the Cloud Console at no cost.
+
+## 9. QuizNotes
+
+* Policies are a union of those applied on resource itself and those inherited from higher levels in the hierarchy. If a parent policy is less restrictive, it overrides a more restrictive policy applied on the resource. If a parent policy is more restrictive, it does not override a less restrictive policy applied on the resource. Therefore, access granted at a higher level in the hierarchy cannot be taken away by policies applied at a lower level in the hierarchy.
+* All Google Cloud Platform resources are associated with a project.
+* Service accounts are used to provide
+	* Authentication between Google Cloud Platform services
+	* A way to allow users to act with service account permissions
+	* A way to restrict the actions a resource (such as a VM) can perform
+* GCP customers and Google Cloud Platform divide responsibility for security
+	* Google takes care of the lower parts of the stack, and customers are responsible for the higher parts.
+* The Project ID globally unique, permanent, and unchangeable, but chosen by the customer
+* Consider a single hierarchy of GCP resources.
+	* There is an organization node, and there are no folders.
+	* There is an organization node, and there is at least one folder.
+	* There is no organization node, and there are no folders.
+* difference between IAM primitive roles and IAM predefined roles
+	* Primitive roles affect all resources in a GCP project. Predefined roles apply to a particular service in a project.
+* billing for solutions deployed using Cloud Marketplace (formerly known as Cloud Launcher)
+	* You pay only for the underlying GCP resources you use, with the possible addition of extra fees for commercially licensed software.
+
 
 ## Resources
 
@@ -70,6 +98,10 @@
 [Cloud APIs](https://cloud.google.com/apis/)
 
 [Cloud Console Mobil Uygulaması](https://cloud.google.com/console-app/)
+
+[What is Google Cloud Marketplace?](https://cloud.google.com/marketplace/docs)
+
+
 
 
 
