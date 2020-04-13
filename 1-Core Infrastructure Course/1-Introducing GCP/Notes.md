@@ -43,9 +43,15 @@
 
 
 [The NIST Definition of Cloud Computing](https://www.nist.gov/publications/nist-definition-cloud-computing)
+
 [Google Cloud'da Uygulama Barındırma](https://cloud.google.com/hosting-options)
+
 [Expanding our global infrastructure with new regions and subsea cables](https://blog.google/topics/google-cloud/expanding-our-global-infrastructure-new-regions-and-subsea-cables/)
+
 [Geography and regions](https://cloud.google.com/docs/geography-and-regions)
+
 [Google Cloud Sürdürülebilirliği](https://cloud.google.com/sustainability)
+
 [Daha az ödeyerek daha fazlasını yapın](https://cloud.google.com/pricing)
+
 [Google Infrastructure Security Design Overview](https://cloud.google.com/security/infrastructure/design/)
