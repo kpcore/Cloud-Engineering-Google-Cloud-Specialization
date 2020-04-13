@@ -1,6 +1,6 @@
 # Cloud Engineering with Google Cloud Professional Certificate
 
-## WHAT YOU WILL LEARN
+## What you will learn
 
 * Learn the skills needed to be successful in a cloud engineering role
 * Learn about the infrastructure and platform services provided by Google Cloud Platform
