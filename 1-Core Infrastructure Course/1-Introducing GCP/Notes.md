@@ -31,3 +31,21 @@
 * All the zones within a region have fast network connectivity among them. Locations within regions usually have round trip network latencies of under five milliseconds.
 * Think of a zone as a single failure domain within a region. As part of building a fault tolerant application, you can spread their resources across multiple zones in a region. That helps protect against unexpected failures.
 * As part of building a fault-tolerant application, you can spread your resources across multiple zones in a region.
+
+## Multi-layered security approach
+
+* Both the server boards and the networking equipment in Google data centers are custom designed by Google. Google also designs custom chips, including a hardware security chip called Titan that's currently being deployed on both servers and peripherals.
+* Google's infrastructure provides cryptographic privacy and integrity for remote procedure called data-on-the-network, which is how Google services communicate with each other.
+* Google Central Identity Service, which usually manifests to end users as the Google log-in page, goes beyond asking for a simple username and password.
+* Users can also use second factors when signing in, including devices based on the universal second factor U2F open standard.
+* Google services that want to make themselves available on the Internet register themselves with an infrastructure service called the Google Front End, which checks incoming network connections for correct certificates and best practices. 
+* Google also has multi-tier, multi-layer denial of service protections that further reduce the risk of any denial of service impact. 
+
+
+[The NIST Definition of Cloud Computing](https://www.nist.gov/publications/nist-definition-cloud-computing)
+[Google Cloud'da Uygulama Barındırma](https://cloud.google.com/hosting-options)
+[Expanding our global infrastructure with new regions and subsea cables](https://blog.google/topics/google-cloud/expanding-our-global-infrastructure-new-regions-and-subsea-cables/)
+[Geography and regions](https://cloud.google.com/docs/geography-and-regions)
+[Google Cloud Sürdürülebilirliği](https://cloud.google.com/sustainability)
+[Daha az ödeyerek daha fazlasını yapın](https://cloud.google.com/pricing)
+[Google Infrastructure Security Design Overview](https://cloud.google.com/security/infrastructure/design/)
