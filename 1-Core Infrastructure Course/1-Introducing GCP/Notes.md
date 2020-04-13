@@ -41,6 +41,7 @@
 * Google services that want to make themselves available on the Internet register themselves with an infrastructure service called the Google Front End, which checks incoming network connections for correct certificates and best practices. 
 * Google also has multi-tier, multi-layer denial of service protections that further reduce the risk of any denial of service impact. 
 
+## Resources
 
 [The NIST Definition of Cloud Computing](https://www.nist.gov/publications/nist-definition-cloud-computing)
 
