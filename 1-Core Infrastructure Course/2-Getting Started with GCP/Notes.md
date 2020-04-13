@@ -16,7 +16,7 @@
 * Services and APIs are enabled on a per-project basis.
 * Google don't manages every aspect of Google Cloud Platform customers' security. Google Cloud Platform manages the lower layers of the security stack, such as physical security, and gives customers tools for managing the higher layers.
 
-## Identity and Access Management (IAM)
+## 3. dentity and Access Management (IAM)
 
 * IAM lets administrators authorize who can take action on specific resources. An IAM policy has a "who" part, a "can do what" part, and an "on which resource" part.
 * The "who" part names the user or users you're talking about. The "who" part of an IAM policy can be defined either by a Google account, a Google group, a Service account, an entire G Suite, or a Cloud Identity domain.
@@ -36,7 +36,7 @@
 * Organization nodes are optional, but you must have one if you want to define folders.
 * Folders require an organization node. Organization nodes are optional, but if you want to create folders, having one is mandatory.
 
-## IAM roles
+## 4. IAM roles
 
 * Compute Engines InstanceAdmin Role lets whoever has that role perform a certain set of actions on virtual machines. The actions are: listing them, reading and changing their configurations, and starting and stopping them.
 * A lot of companies have a least-privileged model in which each person in your organization has the minimum amount of privilege needed to do his or her job.
@@ -45,7 +45,13 @@
 * you'd create a service account to authenticate your VM to cloud storage. Service accounts are named with an email address. But instead of passwords, they use cryptographic keys to access resources.
 * Fortunately, in addition to being an identity, a service account is also a resource. So it can have IAM policies on its own attached to it.
 * You can also change the permissions of the service accounts without having to recreate the VMs.
-* 
+
+## 5. Interacting with Google Cloud Platform
+
+* four ways you can interact with Google Cloud Platform: the Console, the SDK and Cloud Shell, the Mobile App and the APIs.
+
+## 6. Cloud Marketplace (formerly Cloud Launcher)
+
 
 ## Resources
 
@@ -54,5 +60,17 @@
 [Cloud Identity and Access Management (IAM)](https://cloud.google.com/iam/)
 
 [Understanding roles](https://cloud.google.com/iam/docs/understanding-roles)
+
+[Cloud Console](https://cloud.google.com/cloud-console/)
+
+[Google Cloud SDK documentation](https://cloud.google.com/sdk/docs/)
+
+[Google Cloud Shell documentation](https://cloud.google.com/shell/docs/)
+
+[Cloud APIs](https://cloud.google.com/apis/)
+
+[Cloud Console Mobil Uygulaması](https://cloud.google.com/console-app/)
+
+
 
 
