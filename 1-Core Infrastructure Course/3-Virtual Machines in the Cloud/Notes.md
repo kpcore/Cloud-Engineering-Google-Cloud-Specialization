@@ -37,11 +37,28 @@
 * internal load balancer. It accepts traffic on a GCP internal IP address and load balances it across Compute Engine VMs.
 * DNS is what translates internet host names to addresses. And as you would imagine, Google has a highly developed DNS infrastructure. 
 * Google has a global system of edge caches. You can use this system to accelerate content delivery in your application using Google Cloud CDN. 
-* 
+
+## QuizNotes
+
+* Google Cloud Load Balancing allows you to balance HTTP-based traffic across multiple Compute Engine regions. With global Cloud Load Balancing, your application presents a single front-end to the world.
+* Google VPC networks and subnets, Networks are global; subnets are regional
+* An application running in a Compute Engine virtual machine needs high-performance scratch space. Which type of storage meets this need
+	* Local SSD
+* be suitable for running in a Preemptible VM
+	* A batch job that can be checkpointed and restarted
+* How do Compute Engine customers choose between big VMs and many VMs?
+	* Use big VMs for in-memory databases and CPU-intensive analytics; use many VMs for fault tolerance and elasticity
+* How do VPC routers and firewalls work?
+	* They are managed by Google as a built-in feature.
+* A GCP customer wants to load-balance traffic among the back-end VMs that form part of a multi-tier application. Which load-balancing option should this customer choose?
+	* The regional internal load balancer
+* Dedicated Interconnect is a Service Level Agreement available.
 
 ## Resources
 
 [Virtual Private Cloud documentation](https://cloud.google.com/vpc/docs/)
+
+[VPC network overview](https://cloud.google.com/vpc/docs/vpc)
 
 [Compute Engine documentation](https://www.coursera.org/learn/gcp-fundamentals/quiz/mB4ui/compute-engine)
 
