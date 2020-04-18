@@ -32,7 +32,7 @@
 * Think of a zone as a single failure domain within a region. As part of building a fault tolerant application, you can spread their resources across multiple zones in a region. That helps protect against unexpected failures.
 * As part of building a fault-tolerant application, you can spread your resources across multiple zones in a region.
 
-## Multi-layered security approach
+## 6. Multi-layered security approach
 
 * Both the server boards and the networking equipment in Google data centers are custom designed by Google. Google also designs custom chips, including a hardware security chip called Titan that's currently being deployed on both servers and peripherals.
 * Google's infrastructure provides cryptographic privacy and integrity for remote procedure called data-on-the-network, which is how Google services communicate with each other.

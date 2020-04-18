@@ -1,4 +1,4 @@
-# Description of Getting Started with GCP
+# Description of Virtual Machines in the Cloud
 
 Compute Engine lets you run virtual machines on Google’s global infrastructure. This module covers how Compute Engine works, with a focus on Google virtual networking.
 

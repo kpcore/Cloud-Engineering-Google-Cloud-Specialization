@@ -3,7 +3,7 @@
 * Compute Engine lets you run virtual machines on Google's global infrastructure.
 * One of the nice things about virtual machines is that they have the power and generality of a full-fledged operating system in each.
 
-## 3. Virtual Private Cloud (VPC) Network
+## 2. Virtual Private Cloud (VPC) Network
 
 * VPC networks connect your Google Cloud platform resources to each other and to the internet.
 * You can segment your networks, use firewall rules to restrict access to instances, and create static routes to forward traffic to specific destinations.
@@ -12,7 +12,7 @@
 * You can dynamically increase the size of a subnet in a custom network by expanding the range of IP addresses allocated to it. Doing that doesn’t affect already configured VMs.
 * VPC subnets can span the zones that make up a region. This is beneficial because your solutions can incorporate fault tolerance without complicating your network topology.
 
-## Compute Engine
+## 3. Compute Engine
 
 * no upfront investments.
 * fast and to offer consistent performance.
@@ -25,7 +25,7 @@
 * Compute Engine has a feature called auto scaling that lets you add and take away VMs from your application based on load metrics. 
 * The other part of making that work is balancing the incoming traffic across the VMs, and Google VPC supports several different kinds of load balancing.
 
-## Important VPC capabilities
+## 4. Important VPC capabilities
 
 * VPCs have routing tables. These are used to forward traffic from one instance to another instance within the same network. Even across sub-networks and even between GCP zones without requiring an external IP address. 
 * VPCs give you a global distributed firewall. You can control to restrict access to instances, both incoming and outgoing traffic. You can define firewall rules in terms of metadata tags on Compute Engine instances, which is really convenient.

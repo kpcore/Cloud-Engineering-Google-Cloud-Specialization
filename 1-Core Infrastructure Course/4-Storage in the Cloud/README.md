@@ -1,4 +1,4 @@
-# Description of Getting Started with GCP
+# Description of Storage in the Cloud
 
 Every application needs to store data. Different applications and workloads require different storage and database solutions. This module describes and differentiates among GCP's core storage options: Cloud Storage, Cloud SQL, Cloud Spanner, Cloud Datastore, and Google Bigtable.
 

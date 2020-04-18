@@ -130,5 +130,3 @@
 
 [Quickstart for Cloud SQL for MySQL](https://cloud.google.com/sql/docs/mysql/quickstart)
 
-[]
-
