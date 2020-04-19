@@ -35,11 +35,31 @@
 
 ## 4. Google Cloud Endpoints and Apigee Edge
 
-* 
+* A software services implementation can be complex and changeable. What if to use that service, other pieces of software had to know internal details about how they worked? That would be a mess. So instead application developers structure the software they write so that it presents a clean, well-defined interface that abstracts away needless details and then they document that interface. That's an API.
+* The underlying implementation can change as long as the interface doesn't and other pieces of software that use the API don't have to know or care.
+*  Sometimes you have to change an API, say to add or deprecate a feature. To make this kind of API change cleanly, developers version their APIs. Version two of an API might contain calls that version one does not. Programs that consume the API can specify the API version that they want to use in their calls.
+* Supporting an API is a very important task and Google Cloud platform provides two API management tools. They approach related problems in a different way and each has a particular strength.
+* Suppose you're developing a software service and one of GCP's backends. You'd like to make it easy to expose this API. You'd like to make sure it's only consumed by other developers whom you trust. You'd like an easy way to monitor and log its use. You'd like for the API to have a single coherent way for it to know which end user is making the call. That's when you use Cloud Endpoints. It implements these capabilities and more using an easy to deploy proxy in front of your software service, and it provides an API console to wrap up those capabilities in an easy-to-manage interface. 
+* Cloud Endpoints supports applications running in GCP's compute platforms in your choice of languages and your choice of client technologies. 
+* Apigee Edge is also a platform for developing and managing API proxies. It has a different orientation though. It has a focus on business problems like rate limiting, quotas, and analytics. Many users of Apigee Edge are providing a software service to other companies and those features come in handy. Because of the backend services for Apigee Edge need not be in GCP, engineers often use it when they are "taking apart" a legacy application.
+* Instead of replacing a monolithic application in one risky move, they can instead use Apigee Edge to peel off its services one by one, standing up microservices to implement each in turn, until the legacy application can be finally retired.	
 
 ## QuizNotes
 
-* 
+* Which statements are true about App Engine?
+	* It is possible for an App Engine application's daily billing to drop to zero.
+	* App Engine manages the hardware and networking infrastructure required to run your code. 
+* Name 3 advantages of using the App Engine Flexible Environment over App Engine Standard. 
+	* You can install third-party binaries
+	* You can SSH in to your application
+	* Your application can write to local disk
+* Name 3 advantages of using the App Engine Standard Environment over App Engine Flexible.
+	* Scaling is finer-grained
+	* Billing can drop to zero if your application is idle
+	* Google provides and maintains runtime binaries
+* Apigee Edge: to do business analytics and billing on a customer-facing API. 
+* Cloud Endpoint: support developers who are building services in GCP through API logging and monitoring. 
+* Apigee Edge: gradually decompose a pre-existing monolithic application, not implemented in GCP, into microservices.
 
 ## Resources
 
