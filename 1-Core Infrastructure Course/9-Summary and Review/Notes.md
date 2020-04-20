@@ -1,4 +1,4 @@
-## 1. 
+## 1. Summary and Review
 
 * The continuum between managed infrastructure and dynamic infrastructure. GCP's Compute Services are arranged along this continuum, and you can choose where you want to be on it.
 * Choose Compute Engine if you want to deploy your application in virtual machines that run on Google's infrastructure. 
@@ -40,8 +40,4 @@
 * Which of these storage needs is best addressed by Cloud Bigtable?
 	* Structured objects, with lookups based on a single key
 * Which of these storage needs is best addressed by Cloud Storage?
-	* Immutable binary object 
-	
-## Resources
-
-
+	* Immutable binary object
