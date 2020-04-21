@@ -7,6 +7,10 @@
 * The PoPs are where Google's network is connected to the rest of the Internet. GCP can bring its traffic closer to its peers because it operates an extensive global network of interconnection points.
 * This reduces costs and provides users with a they better experience. The network connects regions and PoPs and it's composed of a global network of fiber optic cables with several submarine cable investments.
 
+## 2. Using GCP
+
+*
+
 ## QuizNotes
 
 * 
