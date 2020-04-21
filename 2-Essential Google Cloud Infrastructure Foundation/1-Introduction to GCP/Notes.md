@@ -9,6 +9,10 @@
 
 ## 2. Using GCP
 
+* Four ways you can interact with GCP. There's the Google Cloud Platform console or GCP console, Cloud Shell and the Cloud SDK, the APIs and the Cloud mobile app.
+* The GCP console provides a web-based graphical User Interface that you access through console. If you prefer to work in a terminal window, the Cloud SDK provides the gcloud command line tool.
+* GCP, also provides Cloud Shell which is a browser-based interactive shell environment for GCP that you can access from the GCP console. Cloud Shell is a temporary Virtual Machine with five gigabytes of persistent disk storage that has the Cloud SDK pre-installed.
+* GCP Client Libraries expose APIs for two main purposes. App APIs provide access to services, and they're optimized for supported languages such as Node. js or Python. Admin APIs offer functionality for resource management. The Cloud mobile app is another way to interact with GCP.
 *
 
 ## QuizNotes
