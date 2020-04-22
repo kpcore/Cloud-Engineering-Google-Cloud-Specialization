@@ -42,9 +42,15 @@
 	* Complete range of options and features
 	* A path to automation through scripting
 
+## 4. Infastructure Preview
+
+* Google Cloud Marketplace lets you quickly deploy functional software packages by providing pre-defined templates with which Google Cloud service?
+	* Deployment Manager
+
+
 ## QuizNotes
 
-* 
+ 
 	
 ## Resources
 
