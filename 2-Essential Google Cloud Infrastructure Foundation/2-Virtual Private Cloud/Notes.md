@@ -75,10 +75,36 @@
 * Ingress firewall rules protect against incoming connections to the instance from any source. Ingress allow rules allow specific protocol ports and IP ranges to connecting. The firewall prevents instances from receiving connections on non-permitted ports and protocols. Rules can be restricted to only affect particular sources. Source CIDR ranges can be used to protect an instance from undesired connections coming either from external networks or from GCP IP ranges.
 * You can control ingress connections from a VM instance by constructing inbound connection conditions using source CIDR ranges, protocols, or ports.
 
+## 7. Common Network Design
+
+* VM instances without external IP addresses are isolated from external networks. Using Cloud NAT, these instances can access the internet for updates and patches, and in some cases, for bootstrapping. As a managed service, Cloud NAT provides high availability without user management and intervention.
+* Let's start by looking at availability. If your application needs increased availability, you can place two virtual machines into multiple zones, but within the same subnet work as shown on this slide. Using a single sub-network allows you to to create a file a rule against the sub-network, in this case, 10.2.0.0/16. 
+* Therefore, by allocating VMs on a single subnet to separate zones, you get improved availability without additional security complexity. A regional managed instance group contains instances from multiple zones across the same region, which provides increased availability.
+* Next, let's look at globalization. In the previous design we placed resources in different zones in a single region, which provides isolation for many types of infrastructure, hardware and software failures.
+* Putting resources in different regions as shown on this slide provides an even higher degree of failure independence. This allows you to design robust systems with resources spread across different failure domains. When using a global load balancer like the HTTP load balancer, you can route traffic to the region that is closest to the user. This can result in better latency for users and lower network traffic costs for your project.
+* as a general security best practice, I recommend only assigning internal IP addresses to your VM instances whenever possible. Cloud NAT is Google's managed network address translation service. It lets you provision your application instances without public IP addresses, while also allowing them to access the internet in a controlled and efficient manner. This means your private instances can access the internet for updates, patching, configuration management, and more.
+* Cloud NAT does not Implement inbound NAT. In other words, hosts outside your VPC network cannot directly access any of the private instances behind the cloud NAT gateway. This helps you keep your VPC networks isolated and secure. Similarly, you should enable private Google access to allow VM instances that only have internal IP addresses to reach the external IP addresses of Google APIs and services. For example, if your private VM instance needs to access a cloud storage bucket, you need to enable private Google access. You enable private Google access on a subnet by subnet basis. 
+* When instances do not have external IP addresses, they can only be reached by other instances on the network via a managed VPN gateway or via a Cloud IAP tunnel. Cloud IAP enables context-aware access to VMs via SSH and RDP without bastion hosts.
+* Private Google Access is enabled at the subnet level. When it is enabled, instances in the subnet that only have private IP addresses can send traffic to Google APIs and services through the default route (0.0.0.0/0) with a next hop to the default internet gateway.
+* Cloud NAT is a regional resource. You can configure it to allow traffic from all ranges of all subnets in a region, from specific subnets in the region only, or from specific primary and secondary CIDR ranges only.
+* The NAT mapping section allows you to choose the subnets to map to the NAT gateway. You can also manually assign static IP addresses that should be used when performing NAT
+* The Cloud NAT gateway implements outbound NAT, but not inbound NAT. In other words, hosts outside of your VPC network can only respond to connections initiated by your instances; they cannot initiate their own, new connections to your instances via NAT.
+
 ## QuizNotes
 
-*
-	
+* Without a VPC network, you cannot create VM instances, containers, or App Engine applications.
+* Which firewall rule allows the ping to mynet-eu-vm's external IP address?
+	* mynetwork-allow-icmp
+* In GCP, what is the minimum number of IP addresses that a VM instance needs?
+	* One: Only an internal IP address
+		* In GCP, each virtual machine needs to have an internal IP address. The external IP address is optional; therefore, a VM instance only needs one IP address.
+* What are the three types of networks offered in the Google Cloud Platform?
+	* Default network, auto network, and custom network.
+		* The default-type network established fixed standard subnetworks with predefined IP ranges and it is fast to setup. The auto-type network uses the same subnet IP ranges as the default-type, with a network name other than default. And custom-type allows you to specify the IP ranges of subnets.
+* What is one benefit of applying firewall rules by tag rather than by address?
+	* When a VM is created with a matching tag, the firewall rules apply irrespective of the IP address it is assigned.
+		* When a VM is created the ephemeral external IP address is assigned from a pool. There is no way to predict which address will be assigned, so there is no way to write a rule that will match that VM's IP address before it is assigned. Tags allow a symbolic assignment that does not depend on order in the IP addresses. It makes for simpler, more general, and easier to maintain, firewall rules.
+
 ## Resources
 
 [Regions and Zones](https://cloud.google.com/compute/docs/regions-zones/)
@@ -96,4 +122,18 @@
 [Cloud DNS documentation](https://cloud.google.com/dns/docs/)
 
 [Firewall rules overview](https://cloud.google.com/vpc/docs/firewalls#firewall_rule_components)
+
+[General Network Pricing](https://cloud.google.com/compute/all-pricing#general_network_pricing)
+
+[GCP Estimate Pricing Calculator](https://cloud.google.com/products/calculator/)
+
+[Building internet connectivity for private VMs](https://cloud.google.com/solutions/building-internet-connectivity-for-private-vms#grant_access_to_additional_users)
+
+[Private access options for services](https://cloud.google.com/vpc/docs/private-access-options#pga-supported)
+
+[Cloud IAP enables context-aware access to VMs via SSH and RDP without bastion hosts](https://cloud.google.com/blog/products/identity-security/cloud-iap-enables-context-aware-access-to-vms-via-ssh-and-rdp-without-bastion-hosts)
+
+[Reserving a static external IP address](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address#disableexternalip)
+
+[Using IAP for TCP forwarding](https://cloud.google.com/iap/docs/using-tcp-forwarding)
 
