@@ -9,13 +9,19 @@
 
 ## About this Professional Certificate
 
-This program provides the skills you need to advance your career as a cloud engineer and recommends training to support your preparation for the industry-recognized Google Cloud Associate Cloud Engineer.
+This program provides the skills you need to advance your career as a cloud engineer and recommends training to support your preparation for the industry-recognized [Google Cloud Associate Cloud Engineer](https://cloud.google.com/certification/cloud-engineer).
 
 You'll also have the opportunity to practice key job skills, such as setting up a cloud environment and configuring and deploying a solution in the cloud.
 
 Upon successful completion of this program, you will earn a certificate of completion to share with your professional network and potential employers.
 
-If you would like to become Google Cloud certified and demonstrate your proficiency in using the Google Cloud Console and the command-line interface to perform common platform-based tasks to maintain one or more deployed solutions that leverage Google-managed or self-managed services on Google Cloud, you will need to register for, and pass the official Google Cloud certification exam. You can find more details on how to register and additional resources to support your preparation at cloud.google.com/certification.
+If you would like to become Google Cloud certified and demonstrate your proficiency in using the Google Cloud Console and the command-line interface to perform common platform-based tasks to maintain one or more deployed solutions that leverage Google-managed or self-managed services on Google Cloud, you will need to register for, and pass the official Google Cloud certification exam. You can find more details on how to register and additional resources to support your preparation at [cloud.google.com/certification](https://cloud.google.com/certification).
+
+## Applied Learning Project
+
+This professional certificate incorporates hands-on labs using our Qwiklabs platform.
+
+These hands on components will let you apply the skills you learn in the video lectures. Projects will incorporate topics such as Google Cloud Platform products, which are used and configured within Qwiklabs. You can expect to gain practical hands-on experience with the concepts explained throughout the modules.
 
 ## There are 5 Courses in this Professional Certificate
 
