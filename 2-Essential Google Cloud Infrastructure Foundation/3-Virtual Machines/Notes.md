@@ -119,7 +119,7 @@
 * Now that I've covered some of these snapshot use cases, let's explore the concept of a disk snapshot. First of all, this slide is titled persistent disk snapshots because snapshots are available only to persistent disks and not to local SSDs. Snapshots are different from public images and custom images which are used primarily to create instances or configure instance templates, in that snapshots are useful for periodic backup of the data on your persistent disks. 
 * Snapshots are incremental and automatically compressed, so you can create regular snapshots on a persistent disk faster and at a much lower cost than if you regularly created a full image of the disk. As we saw with the previous examples, snapshots can be restored to a new persistent disk, allowing for a move to a new zone. 
 * Another common Compute Engine action is to resize your persistent disk. The added benefit of increasing storage capacity is to improve I/O performance. This can be achieved while the disk is attached to a running VM without having to create a snapshot. Now, while you can grow disk and size, you can never shrink them. So keep this in mind.
-
+* Cloud Storage offers the Object Lifecycle Management feature to set a Time to Live (TTL) for objects, archive older versions of objects, or "downgrade" storage classes of objects to help manage costs.
 
 ## Review
 
@@ -133,7 +133,16 @@
 
 ## QuizNotes
 
-* 
+* Which statement is true of Virtual Machine Instances in Google Compute Engine?
+	* In Compute Engine, a VM is a networked service that simulates the features of a computer.
+		* VMs in Compute Engine are a collection of networked services. This includes disks (persistent disks) which are network-attached. In some cases the GCP VM behaves unlike hardware or other kinds of virtual machines, for example, when a multi-tenant virtual CPU ""bursts"", using excess capacity beyond the VM spec.
+* What are sustained use discounts?
+	* Automatic discounts that you get for running specific Compute Engine resources for a significant portion of the billing month
+		* Sustained use discounts are automatic discounts that you get for running specific Compute Engine resources (vCPUs, memory, GPU devices) for a significant portion of the billing month. To take advantage of the full 30% discount, create your VM instances on the first day of the month, because discounts reset at the beginning of each month.
+* Which statement is true of persistent disks?
+	* Persistent disks are encrypted by default.
+		* Persistent Disks are not physical disks, they are a virtual-networked service. Each persistent disk remains encrypted either with system-defined keys or with customer-supplied keys.
+
 
 ## Resources
 
