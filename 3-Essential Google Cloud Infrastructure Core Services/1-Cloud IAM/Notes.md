@@ -84,8 +84,16 @@
 
 ## QuizNotes
 
-* 
-	
+* What abstraction is primarily used to administer user access in Cloud IAM ?
+	* Roles, an abstraction of job roles.
+		* Cloud IAM administration uses pre-defined roles for administration of user access. The roles are defined by more granular permissions. But permissions are not applied to users directly, only through the roles that are assigned to them.
+* Which of the following is not a type of IAM role?
+	* Advanced
+		* There are three types of roles in Cloud IAM: primitive roles, predefined roles, and custom roles. There are no "advanced" roles in Cloud IAM.
+* Which of the following is not a type of IAM member?
+	* Organization Account
+		* There are five different types of members: Google Accounts, Service Accounts, Google groups, G Suite domains, and Cloud Identity domains. There are no "Organization Accounts" in Cloud IAM.
+		
 ## Resources
 
 [Creating and Managing Organizations](https://cloud.google.com/resource-manager/docs/creating-managing-organization#adding_an_organization_admin)
