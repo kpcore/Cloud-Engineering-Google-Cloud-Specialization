@@ -46,7 +46,41 @@
 
 ## 5. Members
 
-* 
+* There are five different types of members. Google Accounts, Service Accounts, Google Groups, G Suite Domains, and Cloud Identity Domains. 
+* A Google Account represents a developer, an administrator or any other person who interacts with GCP. Any email address that is associated with a Google Account can be an identity, including gmail.com or other domains. New users can sign up for a Google Account, by going to the Google Account sign-up page, without receiving mail through Gmail.
+* A Service Account is an account that belongs to your application, instead of to an individual end user. When you run code that is hosted on GCP, you specify the account that the code should run as. You can create as many Service Accounts as needed to represent the different logical components of your application. 
+* A Google Group is a named collection of Google Accounts and Service Accounts.  Every group has a unique email address that is associated with the group. Google Groups are a convenient way to apply an access policy to a collection of users. You can grant and change access controls for a whole group at once, instead of granting or changing access controls one at a time, for individual users or Service Accounts.
+* G Suite Domains, represent your organization's Internet domain name, such as example.com. When you add a user to your G Suite Domain, a new Google Account is created for the user inside this virtual group such as, username@example[dot]com. 
+* GCP customers who are not G Suite customers can get the same capabilities through Cloud Identity. Cloud Identity, lets you manage users in groups using the Google Admin Console. But you do not pay for or receive G Suite's collaboration products such as Gmail, Docs, Drive, and Calendar. Cloud Identity is available and free in Premium Editions. The Premium Edition adds capabilities for mobile device management. 
+* Now it's important to note, that you can not use Cloud IAM to create or manage your users or groups. Using Google Cloud Directory Sync, your administrators can log in and manage GCP resources, using the same usernames and passwords they already use. This tool synchronizes users and groups, from your existing Active Directory or LDAP system, with the users and groups in your Cloud Identity Domain. The synchronization is one way only, which means that no information in your Active Directory or LDAP map is modified. 
+* Google Cloud Directory Sync, is designed to run scheduled synchronizations without supervision, after its synchronization, rules are set up. GCP also provides Single Sign-On Authentication. If you have your identity system, you can continue using your own system, and processes with SSL configured.
+* When user authentication is required, google will redirect to your system. If the user is authenticated in your system, access to Google Cloud Platform is given. Otherwise, the user is prompted to sign in. This allows you to also revoke access to GCP. If your existing authentication system support SAML2, SSO configuration, is as simple as three links and a certificate, as shown on this slide.
+
+## 6. Service Accounts
+
+* As I mentioned earlier, another type of member is a service account. A service account is an account that belongs to your application instead of to an individual end user. This provides an identity for carrying out server-to-server interactions in a project without supplying user credentials.  For example, if you write an application that interacts with Google Cloud Storage, it must first authenticate to either the Google Cloud Storage XML API or JSON API. You can enable service accounts and grant read write access to the account on the instance where you plan to run your application, then program the application to obtain credentials from the service account. Your application authenticate seamlessly to the API without embedding any secret keys or credentials in your instance, image, or application code.
+* There are three types of service accounts, user-created or custom, built-in, and Google APIs service accounts. By default, all projects come with the built-in Compute Engine default service account. Apart from the default service account, all projects come with the Google Cloud Platform APIs service account, identifiable by the email, project-number[at]cloudservices.gserviceaccount.com. This is the service account designed specifically to run internal Google processes on your behalf, and it is automatically granted the editor role on your project. 
+* Alternatively, you can also start an instance with accustomed service account. Custom service accounts provide more flexibility than the default service account, but they require more management from you. You can create as many custom service accounts as you need, assign any arbitrary access scopes, or Cloud IAM roles to them, and assign the service accounts to any Virtual Machine instance.
+* Let's talk more about the default Compute Engine service account. As I mentioned, this account is automatically created per project. This account is identifiable by the email, project-number-compute[at]developer.gserviceaccount.com, and it is automatically granted the editor role on a project. When you start a new instance using GCloud, the default service account is enabled on that instance. You can override this behavior by specifying another service account or by disabling service accounts for the instance. 
+* Scopes are used to determine whether an authenticated identity is authorized. In the example shown here, applications A and B contain authenticated identities or service accounts. 
+* Let's assume that both applications want to use a Cloud Storage bucket. They each request access from the Google Authorization Server, and in return they receive an access token.
+
+## 7. Cloud IAM best practices
+
+* Let's talk about some Cloud IAM best practices to help you apply the concepts you just learned in your day-to-day work.
+* First, leverage and understand the resource hierarchy. Specifically, use projects to group resources that share the same trust boundary. 
+* Check the policy granted on each resource and make sure you recognize the inheritance. Because of inheritance, use the principle of least privilege when granting roles. 
+* Finally, audit policies using Cloud audit logs and audit memberships of groups using policies.
+* Next, I recommend granting roles to groups instead of individuals. This allows you to update group membership instead of changing a Cloud IAM policy. If you do this, make sure to audit membership of groups used in policies and control the ownership of the Google group used in Cloud IAM policies.
+* You can also use multiple groups to get better control. In the example on this slide, there is a network admin group. Some of those members also need a read write role to a Cloud Storage bucket, but others need the read only role.
+* Adding and removing individuals from all three groups controls their total access. Therefore, groups are not only associated with job roles but can exist for the purpose of role assignment.
+* Here are some best practices for using service accounts. As mentioned before, be very careful when granting the service accounts user role because it provides access to all the resources of the service account has access to.
+* Also when you create a service account give it a display name that clearly identifies its purpose, ideally using an established naming convention.
+* Also when you create a service account give it a display name that clearly identifies its purpose, ideally using an established naming convention.
+* Finally, I recommend using Cloud Identity Aware Proxy or Cloud IAP. Cloud IAP lets you establish a central authorization layer for applications accessed by HTTPS. 
+* So you can use an application level access control model instead of relying on network level firewalls. Applications and resources protected by Cloud IAP can only be accessed through the proxy by users and groups with the correct Cloud IAM role. 
+* When you grant a user access to an application or resource by Cloud IAP, they're subject to the fine-grained access controls implemented by the product in use without requiring a VPN.
+* Cloud IAP performs authentication and authorization checks when a user tries to access a Cloud IAP secure resource 
 
 ## QuizNotes
 
@@ -57,3 +91,9 @@
 [Creating and Managing Organizations](https://cloud.google.com/resource-manager/docs/creating-managing-organization#adding_an_organization_admin)
 
 [Compute Engine IAM roles](https://cloud.google.com/compute/docs/access/iam#iam_roles])
+
+[Using your existing identity management system with Google Cloud Platform](https://cloud.google.com/blog/products/identity-security/using-your-existing-identity-management-system-with-google-cloud-platform)
+
+[Identity-Aware Proxy overview](https://cloud.google.com/iap/docs/concepts-overview)
+
+
