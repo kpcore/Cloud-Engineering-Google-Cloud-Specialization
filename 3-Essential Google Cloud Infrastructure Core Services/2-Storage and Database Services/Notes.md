@@ -61,12 +61,88 @@
 * Let's explore the decision tree to help you find the appropriate storage class in Cloud Storage.. If you will read your data less than once a year, you should consider using coldline storage.
 * If you will read your data less than once a month, you should consider using Nearline storage, and if you'll be doing reads and writes more often than that, you should consider choosing multi-regional or regional depending on your locality needs. 
 
-## 4. 
+## 4. Cloud SQL
+
+* Let's dive into the structured or relational database services. First step is Cloud SQL. Why would you use a GCP service for SQL, when you can install a SQL Server application image on a VM using Compute Engine? The question really is, should you build your own database solution or use a managed service? There are benefits to using a managed service. So let's learn about why you'd use Cloud SQL as a managed service inside of GCP.
+* Cloud SQL is a fully managed service of either MySQL or PostgreSQL databases. This means that patches and updates are automatically applied, but you still have to administer MySQL users with the native authentication tools that come with these databases.
+* Cloud SQL supports many clients such as Cloud Shell, App Engine, and G-Suite scripts. It also supports other applications and tools that you might be used to using like SQL Workbench, Toad, and other external applications using standard MySQL drivers.
+* Cloud SQL delivers high performance and scalability with up to 30 terabytes of storage capacity, 40,000 IOPS, and 416 gigabytes of RAM per instance. You can easily scale up to 64 processor cores, and scale out with read replicas. 
+* Let's focus on some other services provided by Cloud SQL. There is a replica service that can replicate data between multiple zones as shown on the right. This is useful for automatic failover if an outage occurs. Cloud SQL also provides automated and on-demand backups with point-in-time recovery. You can import and export databases using MySQL dump, or import and export CSV files. Cloud SQL can also scale up which does require a machine restart or scale out using read replicas. That being said, if you are concerned about horizontal scalability, you'll want to consider Cloud Spanner
+* Choosing a connection type to your Cloud SQL instance, will influence how secure, performance, and automated it will be. If you are connecting an application that is hosted within the same GCP project as your Cloud SQL instance, and it is co-located in the same region, choosing the private IP connection will provide you with the most performance and secure connection using private connectivity.
+* In other words, traffic is never exposed to the public Internet. If the application is hosted in another region or project, or if you are trying to connect to your Cloud SQL instance from outside of GCP, you have three options.
+* In this case, I recommend using Cloud Proxy which handles authentication, encryption, and key rotation for you. If you need manual control over the SSL connection, you can generate and periodically rotate the certificates yourself. Otherwise, you can use an unencrypted connection by authorizing a specific IP address, to connect to your SQL server, over its external IP address.
+* To summarize, let's explore this decision tree to help you find the right data storage service with full relational capability.
+* If you need more than 30 terabytes of storage space, or over 4,000 concurrent connections to your database, or if you want your application designed to be responsible for scaling, availability, and location management when scaling up globally, then consider using Cloud Spanner which we will cover later in this module. If you have no concerns with these constraints, ask yourself whether you have specific OS requirements, custom database configuration requirements, or special backup requirements. If you do, consider hosting your own database on a VM using Compute Engine.
+* Otherwise, I strongly recommend using Cloud SQL as a fully managed service for your relational databases. 
+* Private IP is an internal connection, unlike external IP, which egresses to the internet.
+
+## 5. Cloud Spanner
+
+* If Cloud SQL does not fit your requirements because you need horizontal scalability, consider using Cloud Spanner. Cloud Spanner is a service built for the Cloud, specifically to combine the benefits of relational database structure with non-relational horizontal scale. 
+* This service can provide petabytes of capacity and offers transactional consistency at global scale, schemas, SQL, and automatic synchronous replication for high availability. Use cases include financial applications and inventory applications, traditionally served by relational database technology. 
+* Let's compare Cloud Spanner with both relational and non-relational databases. Like a relational database, Cloud Spanner has schema, SQL, and strong consistency. Also like a non-relational database, Cloud Spanner offers high availability, horizontal scalability, and configurable replication. As mentioned, Cloud Spanner offers the best of the relational and non-relational worlds.
+* These features allow for mission-critical use cases such as building consistent systems for transactions and inventory management in the financial services in retail industries. To better understand how all of it works, let's look at the architecture of Cloud Spanner.
+* Cloud Spanner instance replicates data in n Cloud zones, which can be within one region or across several regions. The database placement is configurable. Meaning, you can choose which region to put your database in. This architecture allows for high availability and global placement.
+* The replication of data, will be synchronized across zones using Google's global fiber network. Using atomic clocks, ensures atomicity whenever you are updating your data. That's as far as we're going to go with Cloud Spanner. Because the focus of this module, is to understand the circumstances when you would use Cloud Spanner. 
+* Let's look at a decision tree. If you have outgrown any relational database or sharding your databases for throughput high-performance, need transactional consistency, global data, and strong consistency, or just want to consolidate your database. Consider using Cloud Spanner. If you don't need any of these nor full relational capabilities, consider a NoSQL service such as Cloud fire store which we will cover next. 
+
+## 6. Cloud Firestore
+
+* If you are looking for a highly scalable NoSQL database for your applications, consider using Cloud Firestore. Cloud Firestore is a fast, fully managed, serverless Cloud native, NoSQL document database, that simplifies storing, sinking, and querying data for your mobile, web, and IoT apps at global scale. 
+* It's client libraries provide live synchronization and offline support, and it's security features and integrations with Firebase and GCP accelerate building truly serverless apps. Cloud Firestore also supports ACID transactions. So if any of the operations in the transaction fail and cannot be retried, the whole transaction will fail. Also with automatic multi-region replication and strong consistency, your data is safe and available even when disasters strike. 
+* Cloud Firestore also supports ACID transactions. So if any of the operations in the transaction fail and cannot be retried, the whole transaction will fail. Also with automatic multi-region replication and strong consistency, your data is safe and available even when disasters strike.
+* Cloud Firestore even allows you to run sophisticated queries against your NoSQL data, without any degradation in performance, this gives you more flexibility in the way you structure your data. 
+* Cloud Firestore is actually the next generation of Cloud Datastore. Cloud Firestore can operate in Datastore mode, making it backwards compatible with Cloud Datastore. By creating a Cloud Firestore database in Datastore mode, you can access Cloud Firestore improved storage layer, while keeping Cloud Datastore system behavior. 
+* This removes the following Cloud Datastore limitations. Queries are no longer eventually consistent. Instead they are all strongly consistent. Transactions are no longer limited to 25 entity groups, rights to an entity group are no longer limited to one per second. Cloud Firestore in native mode, introduces new features such as a new strongly consistent storage layer. A collection and document data model, real-time updates, mobile and web client libraries.
+* Cloud Firestore is backward compatible with Cloud Datastore, but the new data mode, real-time updates in mobile and web client library features are not. To access all of the new Cloud Firestore features, you must use Cloud Firestore in native mode. A general guideline is to use Cloud Firestore in Datastore mode for new server projects and native mode for new mobile and web apps. As the next generation of Cloud Datastore, Cloud Firestore is compatible with all Cloud Datastore APIs and client libraries.
+* To summarize, let's explore this decision tree, to help you determine whether Cloud Firestore is the right storage service for your data. If your schema might change and you need an adaptable database, you need to scale to zero or you want low maintenance overhead scaling up to terabytes, consider using Cloud Firestore. Also, if you don't require transactional consistency, you might want to consider Cloud Bigtable, depending on the cost or size.
+
+## 7. Cloud Bigtable
+
+* If you don't require transactional consistency, you might want to consider Cloud Bigtable. Cloud Bigtable is a fully managed NoSQL database with petabyte-scale and very low latency. It seamlessly scales for throughput, and it learns to adjust to specific access patterns.
+* Cloud Bigtable is actually the same database that powers many of Google's core services including Search, Analytics, Maps, and Gmail. Cloud Bigtable is a great choice for both operational and analytical applications including IoT, user analytics, and financial data analysis because it supports high read and write throughput at low latency. It's also a great storage engine for machine learning applications.
+* Cloud Bigtable integrates easily with popular big data tools like Hadoop, Cloud Dataflow, and Cloud Dataproc, plus Cloud Bigtable supports the open-source industry standard HBase API, which makes it easy for your development teams to get started.
+* Cloud Bigtable stores data in massively scalable tables, each of which is a sorted key value map. The table is composed of rows, each of which typically describes a single entity, and columns which contain individual values for each row. Each row is indexed by a single row key. 
+* Columns that are related to one another are typically grouped together into a column family. Each column is identified by a combination of the column family and a column qualifier which is a unique name within the column family. Each row column intersection can contain multiple cells or versions at different timestamps, providing a record of how the stored data has been altered over time. Cloud Bigtable tables are sparse. If a cell does not contain any data, it does not take up any space.  
+* The example shown here is for a hypothetical social network for United States presidents, where each president can follow posts from other presidents. Let me highlight some things. The table contains one column family, the follows family. This family contains multiple column qualifiers.
+* Column qualifiers are used as data. This design choice takes advantage of the sparseness of Cloud Bigtable tables and the fact that new column qualifiers can be added as your data changes. The username is used as the row key. Assuming usernames are evenly spread across the alphabet, data access will be reasonably uniform across the entire table. 
+* This diagram shows a simplified version of Cloud Bigtables overall architecture. It illustrates that processing which is done through a front end server pool and nodes is handled separately from the storage. 
+* A Cloud Bigtable table is sharded into blocks of contiguous rows called tablets, to help balance the workload of queries. Tablets are similar to HBase regions, for those of you who might have used the HBase API.
+* Tablets are stored on Colossus which is Google's file system in SSTable format. An SSTable provides a persistent, ordered, immutable map from keys to values where both keys and values are arbitrary byte strings. As I mentioned earlier, Cloud Bigtable learns to adjust to specific access patterns.
+*  If a certain Bigtable node is frequently accessing a certain subset of data, Cloud Bigtable will update the indexes so that other nodes can distribute that workload evenly as shown here. That throughput scales linearly, so for every single node that you do add, you're going to see a linear scale of throughput performance up to hundreds of nodes.
+* In summary, if you need to store more than one terabyte of structured data, have very high volumes of writes. Need read write latency of less than 10 milliseconds along with strong consistency or need a storage service that is compatible with the HBase API. Consider using Cloud Bigtable. If you don't need any of these and are looking for a storage service that scales down well, consider using Cloud Firestore. 
+* Speaking of Scaling, the smallest Cloud Bigtable cluster you can create has three nodes and can handle 30,000 operations per second. Remember that you pay for those nodes while they are operational, whether your application is using them or not.
+
+## 8. Cloud Memorystore
+
+* Let me give you a quick overview of Cloud Memorystore. Cloud Memorystore for Redis provides a fully managed in-memory data store service built on scalable, secure, and highly available infrastructure managed by Google. Applications running on GCP can achieve extreme performance by leveraging the highly scalable available secure Redis service without the burden of managing complex reddest deployments. 
+* This allows you to spend more time writing code, so that you can focus on building great apps. Cloud Memorystore also automates complex tasks like enabling high availability, failover, patching, and monitoring. High availability instances are replicated across two zones and provide a 99.9 percent availability SLA.
+* You can easily achieve this sub-millisecond latency and throughput your applications need. Start with the lowest tier and smallest size and then grow your instance effortlessly with minimal impact to application availability.
+* Cloud Memorystore can support instances of up to 300 gigabytes and network throughput of 12 gigabytes per second. Because Cloud Memorystore for Redis is fully compatible with the Redis protocol, you can lift-and-shift your applications from open-source Redis to Cloud Memorystore without any code changes by using the import export feature. There is no need to learn new tools because all existing tools in Client Libraries just work.
+
+## 9. Module Review
+
+* In this module, we covered the different storage and database services that GCP offers.
+* Cloud Storage, a fully managed object store; 
+* Cloud SQL, a fully managed MySQL and PostgreSQL database service; 
+* Cloud Spanner, a relational database service with transactional consistency, global scale and high availability; 
+* Cloud Fire Store, a fully managed NoSQL document database; 
+* Cloud Bigtable, a fully managed NoSQL wide column database 
+* Cloud Memorystore, a fully managed in-memory data store service for Redis.  
+*  From an infrastructure perspective, the goal was to understand what services are available and how they are used in different circumstances. 
 
 ## QuizNotes
 
-* 
-		
+* What data storage service might you select if you just needed to migrate a standard relational database running on a single machine in a datacenter to the cloud?
+	* Cloud SQL
+		* Cloud SQL offers a PostgreSQL server or a MySQL server as a managed service.
+* Which data storage service provides data warehouse services for storing data but also offers an interactive SQL interface for querying the data?
+	* BigQuery
+		* BigQuery is a data warehousing service that allows the storage of huge data sets while making them immediately processable without having to extract or run the processing in a separate service.
+* Which GCP data storage service offers ACID transactions and can scale globally?
+	* Cloud Spanner
+		* Cloud Spanner provides ACID (Atomicity, Consistency, Isolation, Durability) properties that enable transactional reads and writes on the database. It can also scale globally.
+
 ## Resources
 
 [Cloud Storage](https://cloud.google.com/products/storage)
@@ -85,5 +161,18 @@
 
 [Object Versioning](https://cloud.google.com/storage/docs/object-versioning)
 
+[Private IP](https://cloud.google.com/sql/docs/mysql/private-ip)
+
+[Migration from MySQL to Cloud SQL](https://cloud.google.com/solutions/migrating-mysql-to-cloudsql-concept)
+
+[Cloud Spanner Service Level Agreement (SLA)](https://cloud.google.com/spanner/sla)
+
+[Migrating from MySQL to Cloud Spanner](https://cloud.google.com/solutions/migrating-mysql-to-spanner)
+
+[Choosing between Native Mode and Datastore Mode](https://cloud.google.com/datastore/docs/firestore-or-datastore)
+
+[Automatic Upgrade to Firestore](https://cloud.google.com/datastore/docs/upgrade-to-firestore)
+
+[Apache HBase](https://hbase.apache.org/)
 
 
