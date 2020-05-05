@@ -72,7 +72,31 @@
 * For each SSL certificate, you first create an SSL certificate resource which contains the SSL certificate information. SSL certificate resources are used only with load balancing proxies such as target HTTPS proxy or target SSL proxy
 * GCP HTTP(S) load balancing is implemented at the edge of Google's network in Google's points of presence (POP) around the world. User traffic directed to an HTTP(S) load balancer enters the POP closest to the user and is then load-balanced over Google's global network to the closest backend that has sufficient available capacity.
 
-## 7. 
+## 7. SSL proxy load balancing
+
+* SSL proxy is a global load balancing service for encrypted, non-HTTP traffic. This load balancer terminates user SSL connections at the load balancing layer, then balances the connections across your instances using the SSL or TCP protocols.
+* These instances can be in multiple regions, and the load balancer automatically directs traffic to the closest region that has capacity. SSL proxy load balancing supports both IPv4 and IPv6 addresses for client traffic and provides intelligent routing, certificate management, security patching, and SSL policies.
+* Intelligent routing means that this load balancer can route requests to backend locations where there is capacity. From a certificate management perspective, you only need to update your customer-facing certificate in one place when you need to switch those certificates.
+* Also, you can reduce the management overhead for your virtual machine instances by using self-signed certificates on your instances. In addition, if vulnerabilities arise in the SSL or TCP stack, GCP will apply patches at the load balancer automatically in order to keep your instances safe. 
+* This network diagram illustrates SSL proxy load balancing. In this example, traffic from users in Iowa and Boston is terminated at the global load balancing layer. From there, a separate connection established to the closest backend instance. In other words, the user in Boston would reach the US East region, and the user in Iowa would reach the US Central region, if there's enough capacity. Now, the traffic between the proxy and the backend can use SSL or TCP. I recommend using SSL.
+
+## 8. TCP proxy load balancing
+
+* TCP proxy is a global load balancing service for unencrypted non-HTTP traffic. This load balancer terminates your customers TCP sessions at the load balancing layer, then forwards the traffic to your virtual machine instances using TCP or SSO.
+* These instances can be in multiple regions and the load balancer automatically directs traffic to the closest region that has capacity. TCP proxy load balancing supports both IPv4 and IPv6 addresses for Client Traffic.
+* Similar to SSL proxy load balancer, the TCP proxy load balancer provides intelligent routing and security patching.
+* This network diagram illustrates TCP proxy load balancing. In this example, traffic from users in Iowa and Boston is terminated at the Global Load Balancing layer. From there, a separate connection is established to the closest backend instance.
+* As in the SSL proxy load balancing example, the users in Boston would reach the US East region and the user in Iowa which reach the US central region, if there's enough capacity. Now the traffic between the proxy and the backends can use SSL or TCP and I also recommend using SSL here.
+
+## 9. Network load balancing
+
+* Next let's talk about network load balancing which is a regional load balancing service. Network load balancing is a regional non proxied load balancing service. In other words, all traffic is passed through the load balancer instead of being proxied and traffic can only be balanced between virtual machine instances that are in the same region unlike a global load balancer.
+* This load balancing service uses forwarding rules to balance the load on your systems based on incoming IP protocol data such as address, port, and protocol type. You can use it to load balance UDP traffic and to load balance TCP NSSL traffic on ports that are not supported by the TCP proxy and SSL proxy load balancers.
+* The back ends of a network load balancer can be a template-based instance group or target pooled resource. But what is the target pool resource? A target pool resource defines a group of instances that receive incoming traffic from forwarding rules.
+* When a forwarding rule direct traffic to a target pool, the load balancer picks an instance from these target pools based on hash of the source IP and port, and the destination IP and port. These target pools can only be used with forwarding rules that handled TCP and UDP traffic.
+* Now each project can have up to 50 target pools and each target pool can have only one health check. Also, all the instances of a target pool must be in the same region which is the same limitation as for the network load balancer.
+
+## 10. Internal load balancing
 
 ## QuizNotes
 
@@ -83,3 +107,7 @@
 [Autoscaling groups of instances](https://cloud.google.com/compute/docs/autoscaler/)
 
 [QUIC, a multiplexed stream transport over UDP](https://www.chromium.org/quic)
+
+[SSL Proxy Load Balancing overview](https://cloud.google.com/load-balancing/docs/ssl/#overview)
+
+[TCP Proxy Load Balancing overview](https://cloud.google.com/load-balancing/docs/tcp/#overview)
