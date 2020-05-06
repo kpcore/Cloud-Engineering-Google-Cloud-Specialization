@@ -98,9 +98,42 @@
 
 ## 10. Internal load balancing
 
+* Next, let's talk about internal load balancing. Internal load balancing is a regional, private load balancing service for TCP and UDP based traffic. In other words, this load balancer enables you to run and scale your services behind a private load balancing IP address. This means that it is only accessible through the internal IP address of virtual machine instances that are in the same region.
+* Therefore, use internal load balancing to configure an internal load balancing IP address, to act as the front end to your private backend instances. Because you don't need a public IP address for your load balanced service, your internal client requests to stay internal to your VPC network and the region.
+* This often results in lower latency, because all your load balanced traffic will stay within Google's network, making your configuration much simpler. Let's talk more about the benefit of using a software-defined internal load balancing service.
+* GCP internal load balancing is not based on a device or a virtual machine instance. Instead, it is a software-defined, fully distributed load balancing solution. In the traditional proxy model of internal load balancing as shown on the left, you configure an internal IP address on a load balancing device or instances, and your client instance connects to this IP address.
+* Traffic coming to the IP address is terminated at the load balancer, and the load balancer selects a backend to establish a new connection to. Essentially, there are two connections. One between the client and the load balancer, and the one between the load balancer and the backend.
+* GCP internal load balancing distributes client instance requests to the backend using a different approach, as shown on the right. It uses lightweight load balancing built on top of Andromeda, Google's network virtualization stack, to provide software-defined load balancing that directly delivers the traffic from the client instance to a backend instance.
+* Now, internal load balancing enables you to support use-cases such as the traditional treaty or web service. In this example, the web tier uses an external HTTPS load balancer, that provides a single global IP address for users in San Francisco, Iowa and Singapore, and so on.
+* The backends of this load balancer are located in the US-Central1 and Asia-East-1 region, because this is a global load balancer. These backends then access an internal load balancer in each region as the application or internal tier. The backends of this internal tier are located in US-Central1-A, US-Central1-B, and Asia-East1-B. 
+* The last tier is the database tier in each of these zones. The benefit of this three-tier approach is that neither the database tier nor the application tier is exposed externally. The simplified security and network pricing. 
+* Google Cloud offers Internal Load Balancing for your TCP/UDP-based traffic. Internal Load Balancing enables you to run and scale your services behind a private load balancing IP address that is accessible only to your internal virtual machine instances.
+
+## 11. Choosing a load balancer
+
+* Now, that we have discussed all the different load balancing services within GCP, let me help you determine which load balancer best meets your need. 
+* One differentiator between the different GCP load balancers is the support for IPv6 clients. Only the HTTPS, SSL proxy, and TCP proxy load balancing services support IPV6 clients. IPv6 termination for these load balancers enables you to handle IPv6 requests from your users and proxy them over IPv4 to your backend. For example, in this diagram, there is a website,
+* www.example[dot]com, that is translated by Cloud DNS to both an IPv4 and IPv6 address. This allows a desktop user in New York and a mobile user in Iowa to access the load balancer through the IPv4 and IPv6 addresses respectively.
+* But how does the traffic get to the backends and their IPv4 addresses? Well, the load balancer acts as a reverse proxy, terminates the IPv6 client connection and places the request into an IPv4 connection to a backend. On the reverse path, the load balancer receives the IPv4 response from the backend and places it into the IPv6 connection back to the original client. In other words, configuring IPv6 termination for your load balancers, lets your backend instances appear as IPv6 applications to your IPv6 clients.
+* Now, in order to decide which load balancer best suits your implementation of GCP, consider the following aspects of Cloud load balancing. Global versus regional load balancing, external versus internal load balancing, and the traffic type.
+* If you need an external load balancing service, start on the top left of this flowchart. First, choose the type of traffic that your load balancer must handle. If that is HTTP or HTTPS traffic, I recommend using the HTTPS load balancing service as a layer seven load balancer. Otherwise, use the TCP and UDP traffic paths of this flowchart to determine whether the SSL proxy, TCP proxy, or network load balancing service meets your needs.
+* If you need an internal load balancing service, you have the internal load balancing service available and it supports both TCP and UDP traffic. As I mentioned at the beginning of this module, there's actually another internal load balancer for HTTPS traffic but it's in beta as of this recording.
+* The sixth load balancer is for HTTP or HTTPS traffic and it's regional meaning for IPv4 clients. If you prefer a table over a flowchart, I recommend this summary table. This table helps you identify the right load balancer based on the traffic type, the distribution of your backend global or regional, and the type of IP addresses of your backend external or internal. This table also lists the available ports for load balancing and highlights that only the Global Load Balancers support both IPv4 and IPV6 clients.
+
 ## QuizNotes
 
-* 
+* Which of the following is not a GCP load balancing service?
+	* Hardware-defined load balancing
+		* Cloud Load Balancing is a fully distributed, software-defined, managed service for all your traffic. It is not an instance or device based solution, so you won’t be locked into physical load balancing infrastructure.
+* Which three GCP load balancing services support IPv6 clients?
+	* HTTP(S) Load Balancing
+	* TCP Proxy Load Balancing
+	* SSL Proxy Load Balancing
+* Which of the following are applicable autoscaling policies for managed instance groups?
+	* Monitoring metrics
+	* Queue-based workload
+	* CPU Utilization
+	* Load balancing capacity
 
 ## Resources
 
@@ -111,3 +144,5 @@
 [SSL Proxy Load Balancing overview](https://cloud.google.com/load-balancing/docs/ssl/#overview)
 
 [TCP Proxy Load Balancing overview](https://cloud.google.com/load-balancing/docs/tcp/#overview)
+
+[Andromeda](https://cloudplatform.googleblog.com/2014/04/enter-andromeda-zone-google-cloud-platforms-latest-networking-stack.html)
